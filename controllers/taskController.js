@@ -15,7 +15,7 @@ export const taskController = {
     const { title } = req.body; // Destructure title explicitly
 
     try {
-      const newTask = taskService.addTask(data);
+      const newTask = taskService.addTask({ title });
 
       return res.created(newTask, "Task created successfully");
     } catch (error) {

@@ -15,10 +15,6 @@ app.use(responseMacro);
 // Use router
 app.use("/api/v1", router);
 
-// router.get("/try", (req, res) => {
-//   res.send("Tasks route is working");
-// });
-
 const port = 3000;
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

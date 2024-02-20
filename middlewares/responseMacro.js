@@ -3,14 +3,15 @@
 import { StatusCodes } from "http-status-codes";
 
 export function responseMacro(req, res, next) {
-  res.success = (data) => {
+  res.success = (data, message = "") => {
     return res.status(StatusCodes.OK).json({
       data: data ?? null,
     });
   };
 
-  res.created = (data) => {
+  res.created = (data, message = "Created") => {
     return res.status(StatusCodes.CREATED).json({
+      message,
       data: data ?? null,
     });
   };

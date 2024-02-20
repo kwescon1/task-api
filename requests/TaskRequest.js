@@ -14,9 +14,9 @@ export const validateTask = [
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .json({ errors: errors.array() });
+      const messages = errors.array().map((error) => error.msg);
+
+      return res.status(StatusCodes.BAD_REQUEST).json({ errors: messages });
     }
     next();
   },

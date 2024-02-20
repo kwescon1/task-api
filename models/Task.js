@@ -1,5 +1,5 @@
 export class Task {
-  constructor(title, completed = false) {
+  constructor(id, title, completed = false) {
     this.id = id;
     this.title = title;
     this.createdAt = new Date();

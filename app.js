@@ -1,7 +1,8 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
 import { responseMacro } from "./middlewares/responseMacro.js";
-
-// import statements
 import router from "./router/index.js";
 
 // application initialization
@@ -15,7 +16,7 @@ app.use(responseMacro);
 // Use router
 app.use("/api/v1", router);
 
-const port = 3000;
+const port = process.env.PORT;
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });

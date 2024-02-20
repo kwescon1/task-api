@@ -26,7 +26,9 @@ const updateTask = (id, updateData) => {
 
   if (taskIndex === -1) return null;
 
-  tasks[taskIndex] = { ...tasks[taskIndex], ...updateData };
+  const task = tasks[taskIndex];
+  if (updateData.title !== undefined) task.title = updateData.title;
+  if (updateData.completed !== undefined) task.completed = updateData.completed;
 
   return tasks[taskIndex];
 };

@@ -1,44 +1,24 @@
 // services/taskService.js
+import TaskRepository from "../repositories/TaskRepository.js";
 
-import { Task } from "../models/Task.js";
-
-let tasks = []; // In-memory list of tasks
-let currentId = 0; // Counter for task IDs
-
-const addTask = ({ title }) => {
-  const newTask = new Task(++currentId, title);
-
-  tasks.push(newTask);
-
-  return newTask;
+const addTask = async (data) => {
+  return TaskRepository.create(data);
 };
 
-const getAllTasks = () => {
-  return tasks;
+const getAllTasks = async () => {
+  return TaskRepository.findAll();
 };
 
-const getTask = (id) => {
-  return tasks.find((task) => task.id === parseInt(id));
+const getTask = async (id) => {
+  return TaskRepository.findById(id);
 };
 
-const updateTask = (id, updateData) => {
-  const taskIndex = tasks.findIndex((task) => task.id === parseInt(id));
-
-  if (taskIndex === -1) return null;
-
-  const task = tasks[taskIndex];
-  if (updateData.title !== undefined) task.title = updateData.title;
-  if (updateData.completed !== undefined) task.completed = updateData.completed;
-
-  return tasks[taskIndex];
+const updateTask = async (id, data) => {
+  return TaskRepository.update(id, data);
 };
 
-const deleteTask = (id) => {
-  const taskIndex = tasks.findIndex((task) => task.id === parseInt(id));
-  if (index === -1) return false;
-
-  tasks.splice(taskIndex, 1); // Remove the task from the array
-  return true;
+const deleteTask = async (id) => {
+  return TaskRepository.delete(id);
 };
 
 export { addTask, getAllTasks, getTask, updateTask, deleteTask };

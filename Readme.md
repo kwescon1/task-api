@@ -66,7 +66,7 @@ The API server and MongoDB instance will start up. By default, the server listen
 Request:
 
 ```json
-POST /api/tasks
+POST /api/v1/tasks
 Content-Type: application/json
 
 {

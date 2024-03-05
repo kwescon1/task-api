@@ -53,11 +53,11 @@ The API server and MongoDB instance will start up. By default, the server listen
 
 ### Endpoints
 
-- **GET `/api/tasks`**: Fetch all tasks.
-- **POST `/api/tasks`**: Create a new task. Requires a `title` in the request body.
-- **GET `/api/tasks/:id`**: Get a specific task by ID.
-- **PUT `/api/tasks/:id`**: Update an existing task by ID.
-- **DELETE `/api/tasks/:id`**: Delete a task by ID.
+- **GET `/api/v1/tasks`**: Fetch all tasks.
+- **POST `/api/v1/tasks`**: Create a new task. Requires a `title` in the request body.
+- **GET `/api/v1/tasks/:id`**: Get a specific task by ID.
+- **PUT `/api/v1/tasks/:id`**: Update an existing task by ID.
+- **DELETE `/api/v1/tasks/:id`**: Delete a task by ID.
 
 ### Request & Response Examples
 

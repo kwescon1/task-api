@@ -1,69 +1,76 @@
 # Task Management API
 
-This Task Management API is a simple, yet powerful Express-based backend application designed to manage tasks efficiently and effectively. It provides endpoints for creating, retrieving, updating, and deleting tasks, making it a versatile tool for any frontend application or service requiring task management functionality.
+This Task Management API is a robust, Express.js-based backend application designed for efficient task management. It offers comprehensive RESTful endpoints for adding, retrieving, updating, and deleting tasks, serving as an integral backend for any frontend system or service that requires task management capabilities.
 
 ## Features
 
-- **Create Tasks**: Add new tasks with titles and automatically track their creation dates.
-- **List Tasks**: Retrieve all tasks with their details.
-- **Update Tasks**: Modify the details of existing tasks.
-- **Delete Tasks**: Remove tasks from the system.
-- **Task Completion Status**: Mark tasks as completed or revert them to incomplete.
+- **Task Operations**: Supports creating, retrieving, updating, and deleting tasks.
+- **Completion Tracking**: Allows marking tasks as completed or incomplete.
+- **Persistence**: Utilizes MongoDB for storing task data persistently.
+- **Validation**: Implements input validation to ensure data integrity.
+- **Dockerization**: Containerized with Docker for easy deployment and environment consistency.
+- **Environment Management**: Uses `.env` files for secure and flexible configuration.
+- **Ease of Setup**: Simplified project setup and management with Makefile commands.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+Follow these instructions to get the project up and running on your local machine for development and testing.
 
 ### Prerequisites
 
-- Node.js (v12.x or later recommended)
-- npm (v6.x or later recommended)
+- Docker and Docker Compose
+- Node.js (v14.x or later recommended)
+- npm (v6.x or later recommended) or yarn
 
 ### Installation
 
 1. **Clone the repository**
 
-```sh
-git clone https://github.com/yourusername/your-task-api-repo.git
-cd your-task-api-repo
+```bash
+git clone https://github.com/kwescon1/task-api.git
+cd task-api
 ```
 
-2. **Install dependencies**
+2. **Set up environment variables**
 
-```sh
-npm install
+Copy the `.env.example` file to a new file named `.env` and adjust the variables to your needs.
+
+3. **Start the application using Make**
+
+The included Makefile simplifies the setup and development process. Use the following commands as needed:
+
+- `make setup` to prepare and start the project.
+- `make fresh` to rebuild and restart containers.
+- `make teardown` to stop and remove containers and volumes.
+
+```bash
+make setup
 ```
 
-3. **Start the application**
-
-```sh
-npm start
-```
-
-The server will start on `http://localhost:3000/`.
+The API server and MongoDB instance will start up. By default, the server listens on `http://localhost:3000/`.
 
 ## Usage
 
 ### Endpoints
 
-- **GET `/api/v1/tasks`**: Retrieve all tasks.
-- **POST `/api/v1/tasks`**: Create a new task. Requires a JSON body with a `title` field.
-- **GET `/api/v1/tasks/:id`**: Retrieve a specific task by its ID.
-- **PUT `/api/v1/tasks/:id`**: Update a task by its ID. Accepts a JSON body with the fields to update.
-- **DELETE `/api/v1/tasks/:id`**: Delete a task by its ID.
+- **GET `/api/tasks`**: Fetch all tasks.
+- **POST `/api/tasks`**: Create a new task. Requires a `title` in the request body.
+- **GET `/api/tasks/:id`**: Get a specific task by ID.
+- **PUT `/api/tasks/:id`**: Update an existing task by ID.
+- **DELETE `/api/tasks/:id`**: Delete a task by ID.
 
-### Examples
+### Request & Response Examples
 
 **Creating a Task**
 
 Request:
 
 ```json
-POST /api/v1/tasks
+POST /api/tasks
 Content-Type: application/json
 
 {
-  "title": "Complete the project documentation"
+  "title": "Finish writing README"
 }
 ```
 
@@ -71,41 +78,27 @@ Response:
 
 ```json
 {
-  "id": 1,
-  "title": "Complete the project documentation",
+  "id": "1",
+  "title": "Finish writing README",
   "completed": false,
-  "createdAt": "2024-02-20T01:26:43.338Z"
+  "createdAt": "2024-03-01T12:00:00.000Z"
 }
 ```
 
 ## Development
 
-### Running with Nodemon
+### Using Docker for Development
 
-For development, you can use Nodemon to automatically restart the server upon changes:
+Docker is used to containerize the application and MongoDB, ensuring a consistent development environment. Changes in the application code will automatically restart the server, thanks to Docker volumes mapping and the use of Makefile commands for easy management.
 
-```sh
-npm run dev
-```
+### Debugging and Testing
 
-Ensure you've installed Nodemon as a dev dependency:
-
-```sh
-npm install nodemon --save-dev
-```
-
-And have the following script in your `package.json`:
-
-```json
-"scripts": {
-  "dev": "nodemon app.js"
-}
-```
+For debugging, attach to the Docker container's process. Use Postman or any other API testing tool to test the endpoints.
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a pull request or open issues to suggest improvements or add new features.
+Contributions are highly appreciated. Please fork the repository, create a feature branch, and submit your pull request for review.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details.
+This project is open-sourced under the MIT License. See the [LICENSE](LICENSE) file for more details.

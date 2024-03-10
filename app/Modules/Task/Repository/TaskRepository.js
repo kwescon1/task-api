@@ -9,4 +9,4 @@ class TaskRepository extends BaseRepository {
   // Task-specific methods would go here
 }
 
-export default new TaskRepository();
+export default TaskRepository;

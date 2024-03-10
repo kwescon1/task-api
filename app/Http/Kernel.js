@@ -10,6 +10,9 @@ import CorsMiddleware from "./Middleware/HandleCors.js";
 // import RequestLogger from "./Middleware/Logger.js";
 import ErrorHandler from "../exceptions/Handler.js";
 
+import container from "../../config/container.js";
+import AttachContainerMiddleware from "./Middleware/AttachContainer.js";
+
 /**
  * Kernel class for managing and applying middleware in an Express application.
  */
@@ -32,6 +35,17 @@ class Kernel {
     const corsMiddleware = new CorsMiddleware().middleware;
 
     this.app.use(corsMiddleware);
+  }
+
+  /**
+   * Configures and applies the container middleware to attach the DI container to every request.
+   */
+  applyContainerMiddleware() {
+    // Create an instance of AttachContainerMiddleware with the DI container
+    const attachContainerMiddleware = new AttachContainerMiddleware(container);
+
+    // Use the middleware to attach the container to the request
+    this.app.use(attachContainerMiddleware.handle);
   }
   /**
    * Configures and applies maintenance mode middleware with exceptions.
@@ -61,6 +75,9 @@ class Kernel {
    * Applies global middleware to every request.
    */
   globalMiddleware() {
+    // First, attach the DI container to the request
+    this.applyContainerMiddleware();
+
     this.app.use(express.json()); // for parsing application/json
     this.app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
     this.handleCors({});

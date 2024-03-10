@@ -7,6 +7,8 @@ import PreventRequestsDuringMaintenance from "./Middleware/PreventRequestsDuring
 import TrimStringsMiddleware from "./Middleware/TrimStrings.js";
 import RateLimiter from "./Middleware/RateLimiter.js";
 import CorsMiddleware from "./Middleware/HandleCors.js";
+// import RequestLogger from "./Middleware/Logger.js";
+import ErrorHandler from "../exceptions/Handler.js";
 
 /**
  * Kernel class for managing and applying middleware in an Express application.
@@ -63,6 +65,7 @@ class Kernel {
     this.app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
     this.handleCors({});
     this.handleRateLimiting({});
+    // this.app.use(RequestLogger.handle);
     this.app.use(responseMacro);
     this.handleMaintenanceMode();
     this.app.use(ConvertEmptyStringsToNull.handle);
@@ -100,6 +103,9 @@ class Kernel {
     this.globalMiddleware();
     this.middlewareGroups();
     // Additional middleware application logic can be added here
+
+    // Apply the error handler as the last piece of middleware
+    this.app.use(ErrorHandler.handle);
   }
 }
 

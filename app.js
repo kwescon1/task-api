@@ -4,7 +4,7 @@ dotenv.config();
 // bodyParser = require("body-parser");
 
 import express from "express";
-import DatabaseConnection from "./services/db/DatabaseService.js";
+import DatabaseConnection from "./config/database.js";
 import Kernel from "./app/Http/Kernel.js"; // Import the Kernel class
 import router from "./router/index.js";
 // import { errorHandler } from "./exceptions/Handler.js";

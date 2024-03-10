@@ -1,5 +1,5 @@
 // controllers/taskController.js
-import * as taskService from "../services/taskService.js";
+import * as taskService from "../../Modules/Task/Service/TaskService.js";
 
 export const taskController = {
   index: async (req, res) => {
@@ -33,15 +33,9 @@ export const taskController = {
   },
 
   show: async (req, res) => {
-    try {
-      const task = await taskService.getTask(req.params.id);
-      if (!task) {
-        return res.notFound("Task not found");
-      }
-      res.success(task);
-    } catch (error) {
-      res.error("Failed to retrieve task");
-    }
+    const task = await taskService.getTask(req.params.id);
+
+    res.success(task);
   },
 
   destroy: async (req, res) => {

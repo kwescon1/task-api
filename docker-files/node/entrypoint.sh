@@ -50,7 +50,7 @@ APP_PORT=${PORT:-3000}
 APP_ROOT="/usr/src/app"
 
 echo "Starting the Express application..."
-if [ "$NODE_ENV" = "development" ]; then
+if [ "$APP_ENV" = "local" ]; then
   echo "${GREEN}Running in Development Mode${NC}"
   # Explicitly install devDependencies in case they were missed
   npm install --only=development

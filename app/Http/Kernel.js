@@ -13,6 +13,7 @@ import ErrorHandler from "../exceptions/Handler.js";
 
 import container from "../../config/container.js";
 import AttachContainerMiddleware from "./Middleware/AttachContainer.js";
+import { NotFoundException } from "../exceptions/NotFoundException.js";
 
 /**
  * Kernel class for managing and applying middleware in an Express application and configuring app routes.
@@ -25,6 +26,18 @@ class Kernel {
    */
   constructor(app) {
     this.app = app;
+  }
+
+  /**
+   * Configures and applies a catch-all route for undefined routes.
+   */
+  handleUndefinedRoutes() {
+    this.app.all("*", (req, res, next) => {
+      // Throw a NotFoundException for any undefined route
+      throw new NotFoundException(
+        `Cannot find ${req.originalUrl} on this server.`
+      );
+    });
   }
 
   /**
@@ -123,6 +136,8 @@ class Kernel {
 
     // Register app route.
     this.app.use("/api/v1", router);
+
+    this.handleUndefinedRoutes(); // Handle undefined routes
 
     this.middlewareGroups();
     // Additional middleware application logic can be added here

@@ -1,6 +1,7 @@
 // kernel.js
 
 import express from "express";
+import router from "../../routes/index.js";
 import { responseMacro } from "./Middleware/Response.js";
 import ConvertEmptyStringsToNull from "./Middleware/ConvertEmptyStringsToNull.js";
 import PreventRequestsDuringMaintenance from "./Middleware/PreventRequestsDuringMaintenance.js";
@@ -14,7 +15,7 @@ import container from "../../config/container.js";
 import AttachContainerMiddleware from "./Middleware/AttachContainer.js";
 
 /**
- * Kernel class for managing and applying middleware in an Express application.
+ * Kernel class for managing and applying middleware in an Express application and configuring app routes.
  */
 class Kernel {
   /**
@@ -116,8 +117,13 @@ class Kernel {
   /**
    * Initializes and applies all configured middleware.
    */
-  applyMiddleware() {
+  configureApplication() {
+    // apply global middleware
     this.globalMiddleware();
+
+    // Register app route.
+    this.app.use("/api/v1", router);
+
     this.middlewareGroups();
     // Additional middleware application logic can be added here
 

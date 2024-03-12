@@ -1,0 +1,1 @@
+Contains an array of exempted routes from specific middlewares

@@ -1,0 +1,15 @@
+/**
+* modelName model definition
+*/
+import mongoose from "mongoose";
+import modelNameSchema from "../../database/schemas/schemaFile";
+
+const document = "modelName"
+
+/**
+ * Represents a modelName entity in the database.
+ * @type {mongoose.Model}
+ */
+const modelName = mongoose.model(document, modelNameSchema);
+
+export default modelName;

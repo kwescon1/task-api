@@ -1,5 +1,6 @@
 import express from "express";
-import { validateTask } from "../requests/TaskRequest.js";
+import { validateTask } from "../app/Http/Requests/TaskRequest.js";
+import asyncHandler from "../app/Utilities/asyncHandler.js";
 
 // Create a new router instance.
 const taskRoutes = express.Router();
@@ -12,20 +13,34 @@ taskRoutes.use((req, res, next) => {
 });
 
 // Route to create a new task.
-taskRoutes.post("/", validateTask, (req, res) =>
-  req.taskController.store(req, res)
+taskRoutes.post(
+  "/",
+  validateTask,
+  asyncHandler((req, res) => req.taskController.store(req, res))
 );
 
 // Route to retrieve all tasks.
-taskRoutes.get("/", (req, res) => req.taskController.index(req, res));
+taskRoutes.get(
+  "/",
+  asyncHandler((req, res) => req.taskController.index(req, res))
+);
 
 // Route to update a task by ID.
-taskRoutes.put("/:id", (req, res) => req.taskController.update(req, res));
+taskRoutes.put(
+  "/:id",
+  asyncHandler((req, res) => req.taskController.update(req, res))
+);
 
 // Route to retrieve a single task by ID.
-taskRoutes.get("/:id", (req, res) => req.taskController.show(req, res));
+taskRoutes.get(
+  "/:id",
+  asyncHandler((req, res) => req.taskController.show(req, res))
+);
 
 // Route to delete a task by ID.
-taskRoutes.delete("/:id", (req, res) => req.taskController.destroy(req, res));
+taskRoutes.delete(
+  "/:id",
+  asyncHandler((req, res) => req.taskController.destroy(req, res))
+);
 
 export default taskRoutes;

@@ -1,0 +1,16 @@
+// schema.stub.js
+import mongoose from "mongoose";
+
+/**
+ * Schema definition for the ModelName.
+ * @type {mongoose.Schema}
+ */
+const ModelNameSchema = new mongoose.Schema({
+  // Schema definition goes here.
+  name: { type: String, required: true },
+  description: String,
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
+});
+
+export default ModelNameSchema;

@@ -55,11 +55,7 @@ class Kernel {
    * Configures and applies the container middleware to attach the DI container to every request.
    */
   applyContainerMiddleware() {
-    // Create an instance of AttachContainerMiddleware with the DI container
-    const attachContainerMiddleware = new AttachContainerMiddleware(container);
-
-    // Use the middleware to attach the container to the request
-    this.app.use(attachContainerMiddleware.handle);
+    return new AttachContainerMiddleware(container).handle;
   }
   /**
    * Configures and applies maintenance mode middleware with exceptions.
@@ -89,9 +85,6 @@ class Kernel {
    * Applies global middleware to every request.
    */
   globalMiddleware() {
-    // First, attach the DI container to the request
-    this.applyContainerMiddleware();
-
     this.app.use(express.json()); // for parsing application/json
     this.app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
     this.handleCors({});
@@ -117,14 +110,16 @@ class Kernel {
     // Example: 'api' middleware group
     const apiMiddleware = [
       // Middlewares for API requests
-      (req, res, next) => {
-        console.log("API middleware");
-        next();
-      },
+
+      // First, attach the DI container to the request
+      this.applyContainerMiddleware(),
     ];
 
     // Apply middleware groups to specific routes or route groups
     // Implementation depends on how routes are defined
+
+    // Apply API middleware to /api/v1 routes
+    this.app.use("/api/v1", apiMiddleware, router);
   }
 
   /**
@@ -134,13 +129,10 @@ class Kernel {
     // apply global middleware
     this.globalMiddleware();
 
-    // Register app route.
-    this.app.use("/api/v1", router);
-
-    this.handleUndefinedRoutes(); // Handle undefined routes
-
     this.middlewareGroups();
     // Additional middleware application logic can be added here
+
+    this.handleUndefinedRoutes(); // Handle undefined routes
 
     // Apply the error handler as the last piece of middleware
     this.app.use(ErrorHandler.handle);

@@ -67,16 +67,10 @@ class TaskController {
    * @param {Object} res - The Express response object.
    */
   async show(req, res) {
-    try {
-      const task = await this.taskService.getTask(req.params.id);
-      if (!task) {
-        return res.notFound("Task not found");
-      }
-      res.success(task);
-    } catch (error) {
-      logger.error(error);
-      res.error("Failed to retrieve task", error);
-    }
+    // try {
+    const task = await this.taskService.getTask(req.params.id);
+
+    res.success(task);
   }
 
   /**

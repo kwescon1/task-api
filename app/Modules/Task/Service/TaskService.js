@@ -1,5 +1,6 @@
 // Import the logger for logging purposes
 import logger from "../../../../config/logging.js";
+import { NotFoundException } from "../../../exceptions/NotFoundException.js";
 
 /**
  * Represents the service for managing tasks.
@@ -43,8 +44,7 @@ class TaskService {
   async getTask(id) {
     const task = await this.taskRepository.findById(id);
     if (!task) {
-      logger.info("Task not found");
-      // Consider throwing an appropriate error if needed
+      throw new NotFoundException("Task Not Found");
     }
     return task;
   }

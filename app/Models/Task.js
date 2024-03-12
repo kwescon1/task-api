@@ -1,19 +1,5 @@
 import mongoose from "mongoose";
-
-const taskSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-  },
-  completed: {
-    type: Boolean,
-    default: false,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-});
+import { taskSchema } from "../../database/schemas/task_schema";
 
 const Task = mongoose.model("Task", taskSchema);
 

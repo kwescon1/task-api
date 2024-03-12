@@ -1,4 +1,4 @@
-import MakeSchemaCommand from "./Commands/MakeSchemaCommand.js";
+import MakeSchemaCommand from "./CLi/MakeSchemaCommand.js";
 // import MakeModelCommand
 
 class Kernel {

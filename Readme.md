@@ -1,6 +1,8 @@
+To reflect the enhancements made to the Task Management API, including the addition of command-line utilities for generating schemas and associated models, the README can be updated as follows:
+
 # Task Management API
 
-This Task Management API is a robust, Express.js-based backend application designed for efficient task management. It offers comprehensive RESTful endpoints for adding, retrieving, updating, and deleting tasks, serving as an integral backend for any frontend system or service that requires task management capabilities.
+This Task Management API is a robust, Express.js-based backend application designed for efficient task management. It features comprehensive RESTful endpoints for adding, retrieving, updating, and deleting tasks, serving as an integral backend for any frontend system or service that requires task management capabilities.
 
 ## Features
 
@@ -11,6 +13,7 @@ This Task Management API is a robust, Express.js-based backend application desig
 - **Dockerization**: Containerized with Docker for easy deployment and environment consistency.
 - **Environment Management**: Uses `.env` files for secure and flexible configuration.
 - **Ease of Setup**: Simplified project setup and management with Makefile commands.
+- **Schema and Model Generation**: Includes a command-line interface (CLI) for generating schemas and models, simplifying development.
 
 ## Getting Started
 
@@ -37,7 +40,7 @@ Copy the `.env.example` file to a new file named `.env` and adjust the variables
 
 3. **Start the application using Make**
 
-The included Makefile simplifies the setup and development process. Use the following commands as needed:
+Use the following Makefile commands as needed:
 
 - `make setup` to prepare and start the project.
 - `make fresh` to rebuild and restart containers.
@@ -51,6 +54,26 @@ The API server and MongoDB instance will start up. By default, the server listen
 
 ## Usage
 
+### Generating Schemas and Models
+
+You can generate new MongoDB schemas and associated models using the CLI included in this project. This utility simplifies the development process by providing an easy way to scaffold new schemas and models with pre-defined templates.
+
+**Generate a Schema**
+
+```bash
+npm run artisan -- make:schema Task --model
+```
+
+This command creates a new schema for tasks and also generates an associated model file.
+
+**Generate a Schema Only**
+
+```bash
+npm run artisan -- make:schema Task
+```
+
+This command creates a new schema file for tasks without generating a model.
+
 ### Endpoints
 
 - **GET `/api/v1/tasks`**: Fetch all tasks.
@@ -59,41 +82,9 @@ The API server and MongoDB instance will start up. By default, the server listen
 - **PUT `/api/v1/tasks/:id`**: Update an existing task by ID.
 - **DELETE `/api/v1/tasks/:id`**: Delete a task by ID.
 
-### Request & Response Examples
-
-**Creating a Task**
-
-Request:
-
-```json
-POST /api/v1/tasks
-Content-Type: application/json
-
-{
-  "title": "Finish writing README"
-}
-```
-
-Response:
-
-```json
-{
-  "id": "1",
-  "title": "Finish writing README",
-  "completed": false,
-  "createdAt": "2024-03-01T12:00:00.000Z"
-}
-```
-
 ## Development
 
-### Using Docker for Development
-
-Docker is used to containerize the application and MongoDB, ensuring a consistent development environment. Changes in the application code will automatically restart the server, thanks to Docker volumes mapping and the use of Makefile commands for easy management.
-
-### Debugging and Testing
-
-For debugging, attach to the Docker container's process. Use Postman or any other API testing tool to test the endpoints.
+The application and MongoDB are containerized using Docker, ensuring a consistent development environment. The project includes Makefile commands for easy setup and management.
 
 ## Contributing
 
